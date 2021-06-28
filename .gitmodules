@@ -1,0 +1,3 @@
+[submodule "root_verb_tables"]
+	path = root_verb_tables
+	url = git@github.com:elazarg/root_verb_tables.git
