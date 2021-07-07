@@ -9,14 +9,14 @@ import utils
 def run_experiment(filename, system):
     fetch = external_apis.SYSTEMS[system]
 
-    lines = list(utils.read_tsv(f'data/expected/{filename}.tsv'))
+    rows = list(utils.read_tsv(f'data/expected/{filename}.tsv'))
 
     outfile = f'data/{system}/{filename}.tsv'
 
     Path(outfile).parent.mkdir(parents=True, exist_ok=True)
 
     with open(outfile, 'w', encoding='utf8') as f:
-        for i, bookid, author, book, word, index, expected_male, expected_female, original in lines:
+        for i, bookid, author, book, word, index, expected_male, expected_female, original in rows:
             index = int(index)
 
             actual_male = fetch(remove_niqqud(expected_male))
