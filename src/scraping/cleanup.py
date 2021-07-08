@@ -1,7 +1,7 @@
 import hebrew
 import string
 
-with open('scrape_data/NLY-PIEL.tsv', encoding='utf8') as f:
+with open('scrape_data/NLY-PAAL.tsv', encoding='utf8') as f:
     lines = f.read().strip().split('\n')
     lines = [line.split('\t') for line in lines]
 
