@@ -1,12 +1,14 @@
 import argparse
 from pathlib import Path
-import logging
+import csv
 
 from hebrew import remove_niqqud
 import external_apis
-import utils
 
-logging.getLogger().setLevel(logging.INFO)
+
+def read_tsv(filename):
+    with open(filename, encoding='utf8', newline='') as f:
+        yield from csv.reader(f, delimiter='\t')
 
 
 def make_filename(system, category):
@@ -16,7 +18,7 @@ def make_filename(system, category):
 def run_experiment(system, category):
     fetch = external_apis.SYSTEMS[system]
 
-    rows = list(utils.read_tsv(make_filename('expected', category)))
+    rows = list(read_tsv(make_filename('expected', category)))
 
     results_file = make_filename(system, category)
 
@@ -44,7 +46,7 @@ def percent(n):
 
 def print_results(system, category):
     results_file = make_filename(system, category)
-    rows = list(utils.read_tsv(results_file))
+    rows = list(read_tsv(results_file))
     female_success = percent(sum(int(row[-1]) for row in rows) / len(rows))
     male_success = percent(sum(int(row[-2]) for row in rows) / len(rows))
     print('\t', category, male_success, female_success)

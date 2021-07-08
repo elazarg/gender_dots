@@ -3,7 +3,17 @@ import re
 import os.path
 
 import hebrew
-import utils
+
+
+def iterate_files(base_paths):
+    for name in base_paths:
+        if not os.path.isdir(name):
+            yield name
+            continue
+        for root, dirs, files in os.walk(name):
+            for fname in files:
+                path = os.path.join(root, fname)
+                yield path
 
 
 def shva_for(letter):
@@ -262,7 +272,7 @@ def print_paal(text):
             yield sentence, words
 
 
-for i, fname in enumerate(utils.iterate_files(['../../gender_dots/shortstoryproject']), 1):
+for i, fname in enumerate(iterate_files(['../../gender_dots/shortstoryproject']), 1):
     basename = os.path.basename(fname).replace('.txt', '')
     # print(i, basename, end='\n', flush=True)
     with open(fname, encoding='utf8') as f:
