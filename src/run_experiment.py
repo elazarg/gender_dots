@@ -4,6 +4,7 @@ from hebrew import remove_niqqud
 
 import external_apis
 import utils
+import argparse
 
 
 def run_experiment(filename, system):
@@ -30,4 +31,11 @@ def run_experiment(filename, system):
 
 
 if __name__ == '__main__':
-    run_experiment('artificial-occupations', 'Dicta')
+    parser = argparse.ArgumentParser(description='Run diacritization tests.')
+    parser.add_argument('system', metavar='SYSTEM', type=str, nargs='?',
+                        help='Diacritization system. One of: Dicta, Nakdimon')
+    parser.add_argument('test', metavar='file', type=str, nargs='?',
+                        help='Test to run')
+    args = parser.parse_args()
+
+    run_experiment(args.test, args.system)

@@ -88,6 +88,21 @@ def saneta_pattern(male):
     ) + '(?=[^ִ])'
 
 
+def hitpaalta_pattern():
+    gender_niqqud = hebrew.KAMATZ if male else ''
+    asita = r'{r1}{kamatz}{r2}{tzere}{aleph}{tav}{kamatz_or_nothing}'
+    letter = '[א-ת]' + r'(?:{}|{})?{}?'.format(hebrew.SHIN_SMALIT, hebrew.SHIN_YEMANIT, hebrew.DAGESH)
+    return asita.format(
+        r1=letter,
+        kamatz=hebrew.KAMATZ,
+        r2=letter,
+        tzere=hebrew.TZEIRE,
+        aleph='א',
+        tav='ת',
+        kamatz_or_nothing=gender_niqqud,
+    ) + '(?=[^ִ])'
+
+
 def asita_pattern(male):
     # Missing: gilita pattern
     # Missing: Hayita pattern
