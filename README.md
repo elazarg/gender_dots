@@ -16,12 +16,20 @@ The files are in `tsv` format (tab-separated values), with the following columns
 * `index`, the index of the word in both sentences
 * `masculine`, a sentence in which the target word is masculine
 * `feminine`, a sentence in which the target word is feminine
+
+The predictions reside in `data/[system]`, for example `data/Dicta`.
+In addition to the above columns, the prediction files have two new columns:
 * `success_masculine`, 1 if the diacritization of `masculine` is correct, 0 otherwise
 * `success_masculine`, 1 if the diacritization of `feminine` is correct, 0 otherwise
 
 ## Running the experiment
 
-Then, install the requirements:
+First, install the requirements:
 ```shell
 python -m pip install -r requirements.txt
+```
+
+Diacritize using Dicta:
+```shell
+python src/run_experiments.py Dicta
 ```
