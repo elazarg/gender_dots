@@ -20,7 +20,7 @@ The files are in `tsv` format (tab-separated values), with the following columns
 The predictions reside in `data/[system]`, for example `data/Dicta`.
 In addition to the above columns, the prediction files have two new columns:
 * `success_masculine`, 1 if the diacritization of `masculine` is correct, 0 otherwise
-* `success_masculine`, 1 if the diacritization of `feminine` is correct, 0 otherwise
+* `success_feminine`, 1 if the diacritization of `feminine` is correct, 0 otherwise
 
 ## Running the experiment
 
