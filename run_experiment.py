@@ -40,11 +40,11 @@ def run_experiment(system, category):
                   file=f, sep='\t')
 
 
-def print_row(system, masc, fem):
+def print_row(system, size, masc, fem):
     if isinstance(masc, str):
-        print(f'{system:>13}  {masc:>9}  {fem:>9}')
+        print(f'{system:>13} {size:>5} {masc:>9}  {fem:>9}')
     else:
-        print(f'{system:>13}  {masc:>9.2%}  {fem:>9.2%}')
+        print(f'{system:>13} {size:>5} {masc:>9.2%}  {fem:>9.2%}')
 
 
 def print_results(system, category):
@@ -52,7 +52,7 @@ def print_results(system, category):
     rows = list(read_tsv(results_file))
     female_success = sum(int(row[-1]) for row in rows) / len(rows)
     male_success = sum(int(row[-2]) for row in rows) / len(rows)
-    print_row(category, male_success, female_success)
+    print_row(category, len(rows), male_success, female_success)
 
 
 if __name__ == '__main__':
@@ -68,7 +68,7 @@ if __name__ == '__main__':
                         help='Tests to run')
     args = parser.parse_args()
 
-    print_row(args.system, "MASC (%)", "FEM (%)")
+    print_row(args.system, "#", "MASC (%)", "FEM (%)")
     for category in args.category:
         run_experiment(args.system, category)
         print_results(args.system, category)
