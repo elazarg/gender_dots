@@ -42,9 +42,9 @@ def run_experiment(system, category):
 
 def print_row(system, size, masc, fem):
     if isinstance(masc, str):
-        print(f'{system:>13} {size:>5} {masc:>9}  {fem:>9}')
+        print(f'{system:>13} {size:>5} {masc:>9}  {fem:>9} ratio')
     else:
-        print(f'{system:>13} {size:>5} {masc:>9.2%}  {fem:>9.2%}')
+        print(f'{system:>13} {size:>5} {masc:>9.2%}  {fem:>9.2%} {masc/fem:>5.3}')
 
 
 def print_results(system, category):

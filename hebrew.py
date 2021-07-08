@@ -20,3 +20,72 @@ DAGESH = '\u05bc'
 
 def remove_niqqud(text: str) -> str:
     return re.sub('[\u05B0-\u05BC\u05C1\u05C2ׇ\u05c7]', '', text)
+
+
+def to_cjrl(text: str) -> str:
+    shin = {
+        'שּׁ': '+s*',
+        'שּׂ': ',s*',
+        'שׁ': '+s',
+        'שׂ': ',s'
+    }
+
+    pairs = {
+        'ו' + HOLAM: 'O',
+        'ו' + SHURUK: 'U',
+    }
+
+    consonants = {
+        'א': "'",
+        'ב': "b",
+        'ג': "g",
+        'ד': "d",
+        'ה': "h",
+        'ו': "w",
+        'ז': "z",
+        'ח': ".h",
+        'ט': ".t",
+        'י': "y",
+        'כ': "k",
+        'ך': "K",
+        'ל': "l",
+        'מ': "m",
+        'ם': "M",
+        'נ': "n",
+        'ן': "N",
+        'ס': "s",
+        'ע': "`",
+        'פ': "p",
+        'ף': "P",
+        'צ': ".s",
+        'ץ': ".S",
+        'ק': "q",
+        'ר': "r",
+        'ש': '/s',
+        'ת': 't',
+    }
+
+    vowels = {
+        HIRIK: 'i',
+        TZEIRE: 'e',
+        SEGOL: 'E',
+        REDUCED_SEGOL: 'E:',
+        PATAKH: 'a',
+        REDUCED_PATAKH: 'a:',
+        KAMATZ: 'A',
+        REDUCED_KAMATZ: 'A:',
+        HOLAM: 'o',
+        SHURUK: 'u',
+        DAGESH: '*',
+        SHVA: ':',
+    }
+
+    for group in [shin, pairs, consonants, vowels]:
+        for c, v in group.items():
+            text = text.replace(c, v)
+    return text
+
+
+if __name__ == '__main__':
+    text = 'הַמַּרְצֶה עֲשִׁירָה.'
+    print(to_cjrl(text))
