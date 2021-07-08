@@ -43,3 +43,5 @@ In order to run the Nakdimon test, you first have to run the Nakdimon server,
 available [here](https://github.com/elazarg/nakdimon), on your local machine. 
 
 Morfix prohibit using automated tools for diacritization, so to run them you must use the online GUI: https://nakdan.morfix.co.il/nikud/Demo
+
+If you only wish to print statistics for already-diacritized dataset, pass the flag `no-classify`

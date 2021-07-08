@@ -66,9 +66,11 @@ if __name__ == '__main__':
                         default=categories,
                         choices=categories,
                         help='Tests to run')
+    parser.add_argument('--no-classify', action="store_true", default=False)
     args = parser.parse_args()
 
     print_row(args.system, "#", "MASC (%)", "FEM (%)")
     for category in args.category:
-        run_experiment(args.system, category)
+        if not args.no_classify:
+            run_experiment(args.system, category)
         print_results(args.system, category)
