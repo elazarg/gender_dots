@@ -31,5 +31,5 @@ python -m pip install -r requirements.txt
 
 Diacritize using Dicta:
 ```shell
-python src/run_experiments.py Dicta
+python run_experiments.py Dicta
 ```
