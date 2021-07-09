@@ -55,6 +55,22 @@ def print_results(system, category):
     print_row(category, len(rows), male_success, female_success)
 
 
+def print_results_original(system, category):
+    results_file = make_filename(system, category)
+    rows = list(read_tsv(results_file))
+    original_success = sum(int(row[-2] if int(row[-3]) == 1 else row[-1]) for row in rows) / len(rows)
+    copy_success = sum(int(row[-1] if int(row[-3]) == 1 else row[-2]) for row in rows) / len(rows)
+    print_row(category, len(rows), original_success, copy_success)
+
+
+def print_count_original(system, category):
+    results_file = make_filename(system, category)
+    rows = list(read_tsv(results_file))
+    original_number = sum((1 if int(row[-3]) == 1 else 0) for row in rows)
+    copy_number = sum((1 if int(row[-3]) == 2 else 0) for row in rows)
+    print(f'{category:>13} {original_number} {copy_number}')
+
+
 if __name__ == '__main__':
     categories = ['ART-OCC', 'ART-VERBS', 'KAF', 'NLY-HITPAEL', 'NLY-PAAL', 'NLY-PIEL', 'TAV-PAAL']
 
@@ -67,10 +83,22 @@ if __name__ == '__main__':
                         choices=categories,
                         help='Tests to run')
     parser.add_argument('--no-classify', action="store_true", default=False)
+    parser.add_argument('--original', action="store_true", default=False)
+    parser.add_argument('--count', action="store_true", default=False)
     args = parser.parse_args()
 
-    print_row(args.system, "#", "MASC (%)", "FEM (%)")
+    if args.original:
+        print_row(args.system, "#", "ORIGNAL (%)", "COPY (%)")
+    elif args.count:
+        print(args.system, "#ORIGINAL", "#COPY")
+    else:
+        print_row(args.system, "#", "MASC (%)", "FEM (%)")
     for category in args.category:
         if not args.no_classify:
             run_experiment(args.system, category)
-        print_results(args.system, category)
+        if args.original:
+            print_results_original(args.system, category)
+        elif args.count:
+            print_count_original(args.system, category)
+        else:
+            print_results(args.system, category)
